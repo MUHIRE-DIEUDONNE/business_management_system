@@ -31,26 +31,36 @@ function CreateAccount() {
         });
     };
 
-    const handleSubmit = async (e) => {
+const handleSubmit = async (e) => {
 
-        e.preventDefault();
+    e.preventDefault();
 
-        try {
+    try {
 
-            const res = await axios.post(
-                "http://localhost:5000/register",
-                formData
-            );
+        const res = await axios.post(
+            "http://localhost:5000/register",
+            formData,
+            {
+                headers: {
+                    "Content-Type": "application/json"
+                }
+            }
+        );
 
-            alert(res.data.message);
+        alert(res.data.message);
 
-            navigate("/");
+        navigate("/");
 
-        } catch (error) {
+    } catch (error) {
 
-            alert("Registration failed");
-        }
-    };
+        console.log(error);
+
+        alert(
+            error.response?.data?.message ||
+            "Registration failed"
+        );
+    }
+};
 
     return (
         <div className="min-h-screen flex justify-center items-center bg-gradient-to-br from-green-700 via-emerald-700 to-teal-800">
